@@ -46,20 +46,40 @@ updateCartCount();
 const ITEMS_PER_PAGE = 4;
 const INITIAL_ITEMS = 4;
 const productSections = document.querySelectorAll('.products');
+const sectionStates = [];
 
 productSections.forEach(productSection => {
-  const products = productSection.querySelectorAll('.product');
-  const container = productSection.nextElementSibling;
+  const products = Array.from(productSection.querySelectorAll('.product'));
+  if (!products.length) return;
 
+  const container = productSection.nextElementSibling;
   if (!container || !container.classList.contains('show-more-container')) return;
 
   const showMoreBtn = container.querySelector('.show-more-btn');
   const showLessBtn = container.querySelector('.show-less-btn');
 
-  let currentVisible = INITIAL_ITEMS;
+  let currentVisible = Math.min(INITIAL_ITEMS, products.length);
 
-  function updateButtons() {
-    showLessBtn.style.display = currentVisible > INITIAL_ITEMS ? 'inline-block' : 'none';
+  const syncVisibleProducts = () => {
+    products.forEach((product, index) => {
+      if (index < currentVisible) {
+        product.classList.remove('hidden');
+        product.style.display = 'block';
+      } else {
+        product.classList.add('hidden');
+        product.style.display = 'none';
+      }
+    });
+  };
+
+  const updateButtons = () => {
+    if (products.length <= INITIAL_ITEMS) {
+      container.style.display = 'none';
+      return;
+    }
+
+    container.style.display = container.dataset.forceHidden === 'true' ? 'none' : 'flex';
+    showLessBtn.disabled = currentVisible <= INITIAL_ITEMS;
 
     if (currentVisible >= products.length) {
       showMoreBtn.disabled = true;
@@ -68,50 +88,62 @@ productSections.forEach(productSection => {
       showMoreBtn.disabled = false;
       showMoreBtn.style.opacity = '1';
     }
+  };
+
+  syncVisibleProducts();
+  updateButtons();
+
+  if (products.length <= INITIAL_ITEMS) {
+    return;
   }
 
-  // Show More
   showMoreBtn.addEventListener('click', () => {
-    const newVisible = Math.min(products.length, currentVisible + ITEMS_PER_PAGE);
-
-    for (let i = currentVisible; i < newVisible; i++) {
-      products[i].classList.remove('hidden');
-      products[i].style.display = "block";
-    }
-
-    currentVisible = newVisible;
+    currentVisible = Math.min(products.length, currentVisible + ITEMS_PER_PAGE);
+    syncVisibleProducts();
     updateButtons();
   });
 
-  // Show Less (NO PAGE JUMP)
   showLessBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    const currentScrollY = window.pageYOffset;
-
-    // Disable smooth scroll
+    const beforeTop = productSection.getBoundingClientRect().top;
     document.documentElement.classList.add('no-scroll-smooth');
 
-    const newVisible = Math.max(INITIAL_ITEMS, currentVisible - ITEMS_PER_PAGE);
-
-    for (let i = newVisible; i < currentVisible; i++) {
-      products[i].classList.add('hidden');
-      products[i].style.display = "none";
-    }
-
-    currentVisible = newVisible;
+    currentVisible = Math.max(INITIAL_ITEMS, currentVisible - ITEMS_PER_PAGE);
+    syncVisibleProducts();
+    const shouldDisableShowLess = currentVisible === INITIAL_ITEMS;
     updateButtons();
 
     requestAnimationFrame(() => {
-      window.scrollTo(0, currentScrollY);
+      const afterTop = productSection.getBoundingClientRect().top;
+      window.scrollBy(0, afterTop - beforeTop);
 
       setTimeout(() => {
         document.documentElement.classList.remove('no-scroll-smooth');
+        if (shouldDisableShowLess) {
+          try {
+            showMoreBtn.focus({ preventScroll: true });
+          } catch (err) {
+            showMoreBtn.focus();
+          }
+        }
       }, 100);
     });
   });
 
-  updateButtons();
+  sectionStates.push({
+    reset() {
+      currentVisible = Math.min(INITIAL_ITEMS, products.length);
+      delete container.dataset.forceHidden;
+      syncVisibleProducts();
+      updateButtons();
+    },
+    hideControls() {
+      container.dataset.forceHidden = 'true';
+      container.style.display = 'none';
+      showLessBtn.disabled = true;
+    }
+  });
 });
 
 
@@ -131,14 +163,15 @@ function performSearch() {
   const searchTerm = searchInput.value.toLowerCase().trim();
   const allProducts = document.querySelectorAll('.product');
 
-  // ⭐ FULL RESET when search is empty
   if (searchTerm === "") {
     allProducts.forEach(product => {
       product.style.display = "block";
-      product.classList.remove("hidden");
     });
+    sectionStates.forEach(state => state.reset());
     return;
   }
+
+  sectionStates.forEach(state => state.hideControls());
 
   let found = false;
 
@@ -159,3 +192,5 @@ function performSearch() {
     alert("No products found matching your search");
   }
 }
+
+
