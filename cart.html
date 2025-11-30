@@ -38,12 +38,12 @@
     }
 
     .logo {
-      font-size: 1.6em;
+      font-size: clamp(1.2em, 4vw, 1.6em);
       font-weight: 700;
       letter-spacing: 1px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       color: #ffd814;
     }
 
@@ -54,7 +54,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 25px;
+      gap: 20px;
     }
 
     .nav-links a {
@@ -64,6 +64,7 @@
       transition: all 0.3s;
       position: relative;
       padding: 5px 0;
+      font-size: 0.95em;
     }
 
     .nav-links a::after {
@@ -111,40 +112,39 @@
 
     /* HERO SECTION */
     .hero {
-    background-image: linear-gradient(
-        135deg,
-        rgba(0, 0, 0, 0.6),
-        rgba(0, 0, 0, 0.4)
-    ),
-    url("https://images.pexels.com/photos/2988232/pexels-photo-2988232.jpeg");
-
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-
-    height: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    flex-direction: column;
-    margin-bottom: 40px;
-}
-
+      background-image: linear-gradient(
+          135deg,
+          rgba(0, 0, 0, 0.6),
+          rgba(0, 0, 0, 0.4)
+      ),
+      url("https://images.pexels.com/photos/2988232/pexels-photo-2988232.jpeg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      flex-direction: column;
+      margin-bottom: 40px;
+    }
 
     .hero-content h1 {
-      font-size: 3em;
+      font-size: clamp(2em, 5vw, 3em);
       margin: 0 0 15px;
       font-weight: 700;
       text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
       animation: fadeInDown 0.6s ease;
+      padding: 0 20px;
     }
 
     .hero-content p {
-      font-size: 1.2em;
+      font-size: clamp(1em, 3vw, 1.2em);
       font-weight: 300;
       animation: fadeInUp 0.6s ease;
+      padding: 0 20px;
     }
 
     @keyframes fadeInDown {
@@ -169,24 +169,18 @@
       }
     }
 
-    /* CART SECTION */
-    .cart-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
+    /* EMPTY CART */
     .empty-cart {
       background: white;
       border-radius: 20px;
-      padding: 80px 40px;
+      padding: clamp(40px, 8vw, 80px) clamp(20px, 5vw, 40px);
       text-align: center;
       box-shadow: 0 15px 50px rgba(0,0,0,0.15);
       animation: slideIn 0.5s ease;
     }
 
     .empty-cart i {
-      font-size: 6em;
+      font-size: clamp(4em, 10vw, 6em);
       color: #e0e0e0;
       margin-bottom: 25px;
       animation: bounce 2s infinite;
@@ -198,7 +192,7 @@
     }
 
     .empty-cart h2 {
-      font-size: 2em;
+      font-size: clamp(1.5em, 4vw, 2em);
       margin-bottom: 15px;
       color: #555;
     }
@@ -206,7 +200,7 @@
     .empty-cart p {
       color: #777;
       margin-bottom: 30px;
-      font-size: 1.1em;
+      font-size: clamp(0.95em, 2.5vw, 1.1em);
     }
 
     .continue-shopping {
@@ -215,11 +209,13 @@
       border: none;
       padding: 15px 40px;
       border-radius: 50px;
-      font-size: 1.1em;
+      font-size: clamp(0.95em, 2.5vw, 1.1em);
       cursor: pointer;
       transition: all 0.3s;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       font-weight: 600;
       box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
     }
@@ -229,6 +225,7 @@
       box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
     }
 
+    /* CART LAYOUT */
     .cart-content {
       display: grid;
       grid-template-columns: 1fr 400px;
@@ -247,15 +244,16 @@
       }
     }
 
+    /* CART ITEMS */
     .cart-items {
       background: white;
       border-radius: 20px;
-      padding: 35px;
+      padding: clamp(25px, 4vw, 35px);
       box-shadow: 0 15px 50px rgba(0,0,0,0.1);
     }
 
     .cart-items h2 {
-      font-size: 2em;
+      font-size: clamp(1.5em, 3.5vw, 2em);
       margin-bottom: 30px;
       color: #333;
       display: flex;
@@ -308,24 +306,28 @@
       flex-direction: column;
       justify-content: center;
       gap: 8px;
+      min-width: 0;
     }
 
     .item-name {
-      font-size: 1.3em;
+      font-size: clamp(1em, 2.5vw, 1.3em);
       font-weight: 600;
       color: #333;
       margin-bottom: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .item-price {
-      font-size: 1.2em;
+      font-size: clamp(1em, 2.5vw, 1.2em);
       color: #667eea;
       font-weight: 700;
       margin-bottom: 15px;
     }
 
     .quantity-controls {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 15px;
       background: #f5f5f5;
@@ -366,6 +368,7 @@
       min-width: 35px;
       text-align: center;
       font-size: 1.1em;
+      color: #333;
     }
 
     .item-actions {
@@ -373,10 +376,11 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: flex-end;
+      gap: 12px;
     }
 
     .item-total {
-      font-size: 1.5em;
+      font-size: clamp(1.2em, 3vw, 1.5em);
       font-weight: 700;
       color: #333;
       background: linear-gradient(135deg, #667eea, #764ba2);
@@ -411,7 +415,7 @@
     .order-summary {
       background: white;
       border-radius: 20px;
-      padding: 35px;
+      padding: clamp(25px, 4vw, 35px);
       box-shadow: 0 15px 50px rgba(0,0,0,0.1);
       position: sticky;
       top: 100px;
@@ -419,18 +423,19 @@
     }
 
     .order-summary h3 {
-      font-size: 1.8em;
+      font-size: clamp(1.4em, 3vw, 1.8em);
       margin-bottom: 25px;
       color: #333;
       border-bottom: 3px solid #667eea;
       padding-bottom: 15px;
+      font-weight: 600;
     }
 
     .summary-row {
       display: flex;
       justify-content: space-between;
       margin-bottom: 18px;
-      font-size: 1.05em;
+      font-size: clamp(0.95em, 2vw, 1.05em);
       color: #555;
     }
 
@@ -440,7 +445,7 @@
     }
 
     .summary-row.total {
-      font-size: 1.5em;
+      font-size: clamp(1.3em, 3vw, 1.5em);
       font-weight: 700;
       background: linear-gradient(135deg, #667eea, #764ba2);
       -webkit-background-clip: text;
@@ -453,7 +458,7 @@
 
     .promo-section {
       margin: 25px 0;
-      padding: 25px;
+      padding: clamp(18px, 3vw, 25px);
       background: linear-gradient(135deg, #f8f9ff 0%, #fff5f8 100%);
       border-radius: 15px;
       border: 2px dashed #667eea;
@@ -461,7 +466,7 @@
 
     .promo-section label {
       font-weight: 600;
-      font-size: 0.95em;
+      font-size: clamp(0.85em, 2vw, 0.95em);
       color: #555;
       display: block;
       margin-bottom: 10px;
@@ -477,7 +482,7 @@
       padding: 12px 18px;
       border: 2px solid #e0e0e0;
       border-radius: 10px;
-      font-size: 1em;
+      font-size: clamp(0.9em, 2vw, 1em);
       transition: all 0.3s;
       font-family: 'Poppins', sans-serif;
     }
@@ -498,6 +503,7 @@
       font-weight: 600;
       transition: all 0.3s;
       white-space: nowrap;
+      font-size: clamp(0.85em, 2vw, 0.95em);
     }
 
     .apply-btn:hover {
@@ -513,7 +519,7 @@
       border-radius: 15px;
       padding: 18px;
       cursor: pointer;
-      font-size: 1.2em;
+      font-size: clamp(1em, 2.5vw, 1.2em);
       font-weight: 700;
       transition: all 0.3s;
       margin-top: 25px;
@@ -540,7 +546,7 @@
       gap: 10px;
       margin-top: 20px;
       color: #777;
-      font-size: 0.95em;
+      font-size: clamp(0.85em, 2vw, 0.95em);
       padding: 12px;
       background: #f8f9fa;
       border-radius: 10px;
@@ -552,64 +558,64 @@
     }
 
     /* FOOTER */
-   footer {
-            background: #202120;
-            color: white;
-            padding: 50px 20px 30px;
-            font-size: 0.95rem;
-            margin-top: 30px;
-        }
+    footer {
+      background: #202120;
+      color: white;
+      padding: 50px 20px 30px;
+      font-size: 0.95rem;
+      margin-top: 60px;
+    }
 
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            max-width: 1100px;
-            margin: 0 auto 30px;
-        }
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto 30px;
+    }
 
-        .footer-about h3,
-        .footer-contact h3,
-        .footer-social h3 {
-            color: #ffcc00;
-            margin-bottom: 15px;
-            font-size: clamp(1rem, 2.5vw, 1.2rem);
-        }
+    .footer-about h3,
+    .footer-contact h3,
+    .footer-social h3 {
+      color: #ffcc00;
+      margin-bottom: 15px;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+    }
 
-        .footer-about p,
-        .footer-contact p {
-            line-height: 1.6;
-            font-size: clamp(0.85rem, 2vw, 0.95rem);
-        }
+    .footer-about p,
+    .footer-contact p {
+      line-height: 1.6;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+    }
 
-        .footer-contact i {
-            margin-right: 10px;
-            color: #ffcc00;
-        }
+    .footer-contact i {
+      margin-right: 10px;
+      color: #ffcc00;
+    }
 
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .social-icons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
 
-        .social-icons a {
-            color: white;
-            font-size: 1.3rem;
-            transition: color 0.3s ease;
-        }
+    .social-icons a {
+      color: white;
+      font-size: 1.3rem;
+      transition: color 0.3s ease;
+    }
 
-        .social-icons a:hover {
-            color: #ffcc00;
-        }
+    .social-icons a:hover {
+      color: #ffcc00;
+    }
 
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 20px;
-            text-align: center;
-            font-size: clamp(0.75rem, 2vw, 0.85rem);
-            color: #ccc;
-        }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 20px;
+      text-align: center;
+      font-size: clamp(0.75rem, 2vw, 0.85rem);
+      color: #ccc;
+    }
 
     /* TOAST */
     .toast {
@@ -627,6 +633,7 @@
       z-index: 2000;
       animation: slideInRight 0.4s ease;
       border-left: 4px solid #43a047;
+      max-width: calc(100vw - 60px);
     }
 
     @keyframes slideInRight {
@@ -650,7 +657,7 @@
     }
 
     /* RESPONSIVE */
-    @media screen and (max-width: 968px) {
+    @media (max-width: 968px) {
       .cart-content {
         grid-template-columns: 1fr;
       }
@@ -658,15 +665,15 @@
       .order-summary {
         position: static;
       }
+
+      .hero {
+        height: 220px;
+      }
     }
 
-    @media screen and (max-width: 700px) {
+    @media (max-width: 768px) {
       nav {
         padding: 15px 20px;
-      }
-
-      .logo {
-        font-size: 1.3em;
       }
 
       .nav-links {
@@ -677,13 +684,19 @@
         display: none;
       }
 
-      .hero-content h1 {
-        font-size: 2em;
+      .hero {
+        height: 200px;
+        margin-bottom: 30px;
+      }
+
+      .cart-container {
+        padding: 0 15px;
       }
 
       .cart-item {
         grid-template-columns: 90px 1fr;
         gap: 15px;
+        padding: 20px 15px;
       }
 
       .item-image {
@@ -699,12 +712,67 @@
         margin-top: 15px;
       }
 
-      .cart-items, .order-summary {
-        padding: 25px;
+      .promo-input {
+        flex-direction: column;
       }
 
-      .empty-cart {
-        padding: 60px 30px;
+      .apply-btn {
+        width: 100%;
+        padding: 12px;
+      }
+
+      .toast {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        padding: 14px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 180px;
+      }
+
+      .cart-items, .order-summary {
+        padding: 20px 15px;
+      }
+
+      .cart-item {
+        grid-template-columns: 75px 1fr;
+        gap: 12px;
+        padding: 15px 10px;
+      }
+
+      .item-image {
+        width: 75px;
+        height: 75px;
+      }
+
+      .quantity-controls {
+        gap: 10px;
+        padding: 6px 12px;
+      }
+
+      .quantity-controls button {
+        width: 30px;
+        height: 30px;
+        font-size: 1em;
+      }
+
+      .quantity-controls span {
+        min-width: 30px;
+        font-size: 1em;
+      }
+
+      .remove-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1em;
+      }
+
+      footer {
+        padding: 40px 15px 25px;
       }
     }
   </style>
@@ -715,7 +783,7 @@
   <nav>
     <div class="logo">
       <i class="fas fa-store"></i>
-      SME Marketplace
+      <span>SME Market</span>
     </div>
     <div class="nav-links">
       <a href="index.html"><i class="fas fa-home"></i> <span>Home</span></a>
@@ -728,17 +796,17 @@
     </div>
   </nav>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1><i class="fas fa-shopping-bag"></i> Your Shopping Cart</h1>
-      <p>Review your items and complete your purchase securely</p>
-    </div>
-  </section>
-
-  <!-- CART SECTION -->
+  <!-- MAIN CONTAINER -->
   <div class="cart-container">
-    <!-- Empty Cart Message -->
+    <!-- PAGE HEADER -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1><i class="fas fa-shopping-bag"></i> Your Shopping Cart</h1>
+        <p>Review your items and complete your purchase securely</p>
+      </div>
+    </div>
+
+    <!-- EMPTY CART MESSAGE -->
     <div class="empty-cart" id="empty-cart" style="display: none;">
       <i class="fas fa-shopping-cart"></i>
       <h2>Your cart is empty</h2>
@@ -748,35 +816,35 @@
       </a>
     </div>
 
-    <!-- Cart Content -->
+    <!-- CART CONTENT -->
     <div class="cart-content" id="cart-content" style="display: none;">
-      <!-- Cart Items -->
+      <!-- CART ITEMS -->
       <div class="cart-items">
         <h2>
           <i class="fas fa-shopping-basket"></i>
           Shopping Cart (<span id="item-count">0</span> items)
         </h2>
         <div id="cart-items-container">
-          <!-- Items will be inserted here by JavaScript -->
+          <!-- Items will be inserted here -->
         </div>
       </div>
 
-      <!-- Order Summary -->
+      <!-- ORDER SUMMARY -->
       <div class="order-summary">
         <h3>Order Summary</h3>
         
         <div class="summary-row">
-          <span>Subtotal:</span>
+          <span>Subtotal</span>
           <span>₵<span id="subtotal">0.00</span></span>
         </div>
         
         <div class="summary-row">
-          <span>Shipping:</span>
+          <span>Shipping</span>
           <span>₵<span id="shipping">10.00</span></span>
         </div>
         
         <div class="summary-row">
-          <span>Tax (12.5%):</span>
+          <span>Tax (12.5%)</span>
           <span>₵<span id="tax">0.00</span></span>
         </div>
 
@@ -806,50 +874,47 @@
     </div>
   </div>
 
-  <!-- Toast Notification -->
+  <!-- TOAST NOTIFICATION -->
   <div class="toast" id="toast">
     <i class="fas fa-check-circle"></i>
     <span id="toast-message"></span>
   </div>
 
   <!-- FOOTER -->
-  <!-- ===== FOOTER SECTION ===== -->
-<footer>
-  <div class="footer-container">
-    <div class="footer-about">
-      <h3>SME Marketplace</h3>
-      <p>
-        Your trusted platform for buying and selling locally.  
-        Empowering artisans, farmers, and small entrepreneurs to thrive online.
-      </p>
-    </div>
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <h3>SME Marketplace</h3>
+        <p>
+          Your trusted platform for buying and selling locally.  
+          Empowering artisans, farmers, and small entrepreneurs to thrive online.
+        </p>
+      </div>
 
-    <div class="footer-contact">
-      <h3>Contact Us</h3>
-      <p><i class="fas fa-phone"></i> +233 24 123 4567</p>
-      <p><i class="fas fa-envelope"></i> support@smemarketplace.com</p>
-      <p><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
-    </div>
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p><i class="fas fa-phone"></i> +233 24 123 4567</p>
+        <p><i class="fas fa-envelope"></i> support@smemarketplace.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> Accra, Ghana</p>
+      </div>
 
-    <div class="footer-social">
-      <h3>Follow Us</h3>
-      <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <div class="footer-social">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="footer-bottom">
-    <p>&copy; 2025 SME Marketplace | All Rights Reserved.</p>
-  </div>
-</footer>
-
+    <div class="footer-bottom">
+      <p>&copy; 2025 SME Marketplace | All Rights Reserved.</p>
+    </div>
+  </footer>
 
   <script>
-    // Cart state loaded from localStorage
     let cart = [];
 
     const cartItemsContainer = document.getElementById('cart-items-container');
@@ -858,15 +923,12 @@
     const itemCount = document.getElementById('item-count');
     const cartCount = document.getElementById('cart-count');
 
-    // Initialize cart on page load
     function initCart() {
-      // Load cart from localStorage
       const savedCart = localStorage.getItem('cart');
       
       if (savedCart) {
         try {
           cart = JSON.parse(savedCart);
-          // Add default image if missing
           cart = cart.map(item => ({
             ...item,
             image: item.image || 'https://images.pexels.com/photos/3747468/pexels-photo-3747468.jpeg?auto=compress&cs=tinysrgb&w=400'
@@ -906,18 +968,18 @@
             <div class="item-name">${item.name}</div>
             <div class="item-price">₵${item.price.toFixed(2)}</div>
             <div class="quantity-controls">
-              <button onclick="changeQuantity(${index}, -1)">
+              <button onclick="changeQuantity(${index}, -1)" aria-label="Decrease quantity">
                 <i class="fas fa-minus"></i>
               </button>
               <span>${item.quantity}</span>
-              <button onclick="changeQuantity(${index}, 1)">
+              <button onclick="changeQuantity(${index}, 1)" aria-label="Increase quantity">
                 <i class="fas fa-plus"></i>
               </button>
             </div>
           </div>
           <div class="item-actions">
             <div class="item-total">₵${itemTotal.toFixed(2)}</div>
-            <button class="remove-btn" onclick="removeItem(${index})" title="Remove item">
+            <button class="remove-btn" onclick="removeItem(${index})" title="Remove item" aria-label="Remove item">
               <i class="fas fa-trash-alt"></i>
             </button>
           </div>
@@ -925,7 +987,6 @@
         cartItemsContainer.appendChild(itemEl);
       });
 
-      // Update summary
       const shipping = cart.length > 0 ? 10 : 0;
       const tax = subtotal * 0.125;
       const total = subtotal + shipping + tax;
@@ -947,16 +1008,14 @@
         return;
       }
       
-      // Save to localStorage
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartDisplay();
-      showToast('Quantity updated successfully');
+      showToast('Quantity updated');
     }
 
     function removeItem(index) {
       const itemName = cart[index].name;
       cart.splice(index, 1);
-      // Save to localStorage
       localStorage.setItem('cart', JSON.stringify(cart));
       updateCartDisplay();
       showToast(`${itemName} removed from cart`);
@@ -966,10 +1025,9 @@
       const promoCode = document.getElementById('promo-code').value.trim().toUpperCase();
       
       if (promoCode === 'SAVE10') {
-        showToast('🎉 Promo code applied! 10% discount');
-        // Add discount logic here
+        showToast('🎉 10% discount applied!');
       } else if (promoCode === 'WELCOME20') {
-        showToast('🎉 Welcome! 20% discount applied');
+        showToast('🎉 20% discount applied!');
       } else if (promoCode === '') {
         showToast('⚠️ Please enter a promo code');
       } else {
@@ -984,9 +1042,9 @@
       }
       
       const total = document.getElementById('total').textContent;
-      showToast('Redirecting to secure checkout...');
+      showToast('Redirecting to checkout...');
       setTimeout(() => {
-        alert(`Checkout Summary:\n\nTotal Amount: ₵${total}\n\nThank you for shopping with SME Marketplace!\n\n(Checkout feature coming soon)`);
+        alert(`Checkout Summary:\n\nTotal: ₵${total}\n\nThank you for shopping!\n\n(Checkout feature coming soon)`);
       }, 1000);
     }
 
@@ -1002,7 +1060,6 @@
       }, 3000);
     }
 
-    // Initialize on page load
     initCart();
   </script>
 </body>
